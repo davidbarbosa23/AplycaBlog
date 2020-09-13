@@ -24,7 +24,7 @@ class BlogController extends AbstractController
         $pagination = $paginator->paginate(
             $postsQuery,
             $request->query->getInt('page', 1),
-            5
+            6
         );
 
         return $this->render('blog/index.html.twig', [
@@ -46,26 +46,13 @@ class BlogController extends AbstractController
         $pagination = $paginator->paginate(
             $postsQuery,
             $request->query->getInt('page', 1),
-            5
+            6
         );
 
         return $this->render('blog/userposts.html.twig', [
             'postsPagination' => $pagination
         ]);
-    }
-    
-    /**
-     * @Route("/blog/{id}", name="single")
-     */
-    public function single($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $post = $em->getRepository(Post::class)->find($id);
-
-        return $this->render('blog/single.html.twig', [
-            'post' => $post,
-        ]);
-    }
+    }    
     
     /**
      * @Route("/blog/add", name="add")
@@ -98,6 +85,19 @@ class BlogController extends AbstractController
 
         return $this->render('blog/add.html.twig', [
             'addPostForm' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/blog/{id}", name="single")
+     */
+    public function single($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository(Post::class)->find($id);
+
+        return $this->render('blog/single.html.twig', [
+            'post' => $post,
         ]);
     }
 }

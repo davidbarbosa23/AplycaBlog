@@ -22,7 +22,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/register", name="register")
+     * @Route("/register", name="register")
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -37,7 +37,7 @@ class UserController extends AbstractController
             // Check if user already exist
             $userCheck = $em->getRepository(Users::class)->findOneBy(['email' => $form['email']->getData()]);
             if ($userCheck) {
-                $this->addFlash('success', 'User already registered');
+                $this->addFlash('error', 'User already registered');
                 return $this->redirectToRoute('register');
             }
             

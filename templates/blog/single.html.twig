@@ -1,9 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BlogController!{% endblock %}
+{% block title %}{{ post.title }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-    {{ dump(post) }}
+    <article>
+        <header class="hero hero-fullscreen hero-bg-white">
+            <div class="hero-background hero-background-stick-right w-75 shadow-lg">
+                <img src="{{ asset('uploads/post/img/' ~ post.image) }}" alt="{{ post.title }}">
+            </div>
+            <div class="hero-foreground d-flex flex-column justify-content-center">
+                <div class="container d-flex align-items-center justify-content-center justify-content-lg-start">
+                    <div class="card p-4 border-0 rounded-0 shadow-lg text-center text-lg-left" style="max-width: 595px">
+                        <div class="card-body">
+                            <h1 class="display-2 font-weight-bolder">{{ post.title }}</h1>
+                            <p class="pt-3">{{ post.extract }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section class="container">
+            <div class="row py-5">
+                <div class="col-sm-10 col-md-8 col-lg-6 mx-auto">
+                    <blockquote class="blockquote text-right">
+                        <p class="mb-0"><small><i>Escrito por: </i></small> {{ post.author.name }}</p>
+                        <p class=""><small>{{ post.createdAt | format_datetime(pattern="d 'de' MMMM, YYYY", locale='es') }}</small></p>
+                    </blockquote>
+                    <div class="">
+                        <p>{{ post.content | replace({"\n":"</p><p>"}) | raw }}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
 
 {% endblock %}

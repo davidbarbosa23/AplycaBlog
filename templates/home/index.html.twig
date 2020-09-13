@@ -1,20 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Inicio | {{ parent() }}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/Works/Aplyca/blog/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/Works/Aplyca/blog/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <section class="jumbotron text-center">
+        <div class="container">
+        <h1>Lorem Ipsum</h1>
+        <p class="lead text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat efficitur mi, at eleifend elit dictum in. Donec id dignissim enim. Morbi diam turpis, lobortis nec volutpat quis, sollicitudin a metus. Morbi fermentum, ligula vitae efficitur placerat, justo lectus porttitor augue, eu rhoncus felis neque sit amet mi. Nulla facilisi. Aliquam eu vehicula tortor, et placerat arcu. Pellentesque turpis tellus, porta ut ligula in, sagittis tempus est.</p>
+        <p>
+            <a href="{{ path('blog') }}" class="btn btn-primary my-2">Blog</a>
+            <a href="{{ path('contact') }}" class="btn btn-secondary my-2">Contacto</a>
+        </p>
+        </div>
+    </section>
 {% endblock %}

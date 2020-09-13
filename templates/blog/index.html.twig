@@ -1,16 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BlogController!{% endblock %}
+{% block title %}Blog | {{ parent() }}{% endblock %}
 
 {% block body %}
-
-    {# total items count #}
+    {# Paginator Options
     <div class="count">
         {{ postsPagination.getTotalItemCount }}
     </div>
     <table>
         <tr>
-            {# sorting of properties based on query components #}
             <th>{{ knp_pagination_sortable(postsPagination, 'Id', 'Post.id') }}</th>
             <th{% if postsPagination.isSorted('Post.Title') %} class="sorted"{% endif %}>
                 {{ knp_pagination_sortable(postsPagination, 'Title', 'Post.title') }}
@@ -19,19 +17,39 @@
                 {{ knp_pagination_sortable(postsPagination, 'Release', 'Post.createdAt') }}
             </th>
         </tr>
-
-        {# table body #}
-        {% for article in postsPagination %}
-            <tr {% if loop.index is odd %}class="color"{% endif %}>
-                <td>{{ article.id }}</td>
-                <td>{{ article.title }}</td>
-                <td>{{ article.createdAt | date('Y-m-d, H:i:s') }}</td>
-            </tr>
-        {% endfor %}
     </table>
-    {# display navigation #}
-    <div class="navigation">
-        {{ knp_pagination_render(postsPagination) }}
+    #}
+
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                {% for article in postsPagination %}
+                <div class="col-md-6 col-lg-4" data-id="{{ article.id }}">
+                    <div class="card mb-4 shadow-sm">
+                        <img class="bd-placeholder-img card-img-top" src="{{ asset('uploads/post/img/' ~ article.image) }}" />
+                        <div class="card-body">
+                            <h2>{{ article.title }}</h2>
+                            <p class="card-text">{{ article.extract }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{{ path('single', {id:article.id}) }}" class="btn btn-sm btn-outline-secondary">Ver</a>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
+                                </div>
+                                <small class="text-muted">{{ article.createdAt | format_datetime(pattern="d 'de' MMMM, YYYY", locale='es') }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {# display navigation #}
+            <div class="navigation d-flex justify-content-center py-4">
+                {{ knp_pagination_render(postsPagination) }}
+            </div>
+        </div>
     </div>
+
+
 
 {% endblock %}
