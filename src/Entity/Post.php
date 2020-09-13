@@ -26,6 +26,11 @@ class Post
      * @ORM\Column(type="text")
      */
     private $content;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $extract;
     
     /**
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="posts")
@@ -86,6 +91,18 @@ class Post
         return $this;
     }
 
+    public function getExtract(): ?string
+    {
+        return $this->extract;
+    }
+
+    public function setExtract(?string $extract): self
+    {
+        $this->extract = $extract;
+
+        return $this;
+    }
+
     public function getAuthor(): ?Users
     {
         return $this->author;
@@ -133,4 +150,5 @@ class Post
 
         return $this;
     }
+
 }

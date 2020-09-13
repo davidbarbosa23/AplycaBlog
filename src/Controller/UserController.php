@@ -30,24 +30,20 @@ class UserController extends AbstractController
         $form = $this->createForm(RegisterType::class, $user);
         $form->handleRequest($request);
 
-        /**
-         * If Submit is activated
-         */
         if ($form->isSubmitted() && $form->isValid()) {
-            /**
-             * Check if user already exist
-             */            
+            // Entity Manager
             $em = $this->getDoctrine()->getManager();
+
+            // Check if user already exist
             $userCheck = $em->getRepository(Users::class)->findOneBy(['email' => $form['email']->getData()]);
             if ($userCheck) {
                 $this->addFlash('success', 'User already registered');
                 return $this->redirectToRoute('register');
             }
             
-            /**
-             * Persistent User
-             */
+            // Set password with encoder
             $user->setPassword($passwordEncoder->encodePassword($user, $form['password']->getData()));
+
             $em->persist($user);
             $em->flush();
             $this->addFlash('success', 'Registered successfully');
