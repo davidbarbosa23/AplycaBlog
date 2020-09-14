@@ -26,6 +26,9 @@
                     <blockquote class="blockquote text-right">
                         <p class="mb-0"><small><i>Escrito por: </i></small> {{ post.author.name }}</p>
                         <p class=""><small>{{ post.createdAt | format_datetime(pattern="d 'de' MMMM, YYYY", locale='es') }}</small></p>
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <p><a href="{{ path('edit', {'id' : post.id}) }}" class="btn btn-sm btn-outline-secondary">Editar</a></p>
+                        {% endif %}
                     </blockquote>
                     <div class="">
                         <p>{{ post.content | replace({"\n":"</p><p>"}) | raw }}</p>

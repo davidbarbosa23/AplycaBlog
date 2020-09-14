@@ -23,7 +23,9 @@
                                     <div class="dropdown-item">{{ knp_pagination_sortable(postsPagination, 'Fecha', 'Post.createdAt') }}</div>
                                 </div>
                             </div>
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                             <a href="{{ path('add') }}" class="btn btn-primary">Añadir</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
