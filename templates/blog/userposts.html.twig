@@ -3,34 +3,60 @@
 {% block title %}Mis Entradas | {{ parent() }}{% endblock %}
 
 {% block body %}
-    {# total items count #}
-    <div class="count">
-        {{ postsPagination.getTotalItemCount }}
-    </div>
-    <table>
-        <tr>
-            {# sorting of properties based on query components #}
-            <th>{{ knp_pagination_sortable(postsPagination, 'Id', 'Post.id') }}</th>
-            <th{% if postsPagination.isSorted('Post.Title') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(postsPagination, 'Title', 'Post.title') }}
-            </th>
-            <th{% if postsPagination.isSorted('Post.Release') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(postsPagination, 'Release', 'Post.createdAt') }}
-            </th>
-        </tr>
 
-        {# table body #}
-        {% for article in postsPagination %}
-            <tr {% if loop.index is odd %}class="color"{% endif %}>
-                <td>{{ article.id }}</td>
-                <td>{{ article.title }}</td>
-                <td>{{ article.createdAt | date('Y-m-d, H:i:s') }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-    {# display navigation #}
-    <div class="navigation">
-        {{ knp_pagination_render(postsPagination) }}
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row pb-5">
+                <div class="col-md-8 col-lg-6 mx-auto">
+                    <h1 class="text-center">Mis Entradas</h1>
+                    <hr>
+                    <div class="d-flex justify-content-center">
+                        <div class="btn-group" role="group" aria-label="">
+                            <button type="button" class="btn btn-outline-secondary" disabled># Entradas: {{ postsPagination.getTotalItemCount }}</button>
+
+                            <div class="btn-group" role="group">
+                                <button id="btnGroupDropdown" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Ordenar por
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="btnGroupDropdown">
+                                    <div class="dropdown-item">{{ knp_pagination_sortable(postsPagination, 'Título', 'Post.title') }}</div>
+                                    <div class="dropdown-item">{{ knp_pagination_sortable(postsPagination, 'Fecha', 'Post.createdAt') }}</div>
+                                </div>
+                            </div>
+                            <a href="{{ path('add') }}" class="btn btn-primary">Añadir</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for article in postsPagination %}
+                <div class="col-md-6 col-lg-4" data-id="{{ article.id }}">
+                    <div class="card mb-4 shadow-sm">
+                        <img class="bd-placeholder-img card-img-top" src="{{ asset('uploads/post/img/' ~ article.image) }}" />
+                        <div class="card-body">
+                            <h2>{{ article.title }}</h2>
+                            <p class="card-text">{{ article.extract }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">{{ article.createdAt | format_datetime(pattern="d 'de' MMMM, YYYY", locale='es') }}</small>
+                                <div class="btn-group">
+                                    <a href="{{ path('single', {id:article.id}) }}" class="btn btn-sm btn-primary">Ver</a>
+                                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                    <a href="{{ path('edit', {id:article.id}) }}" class="btn btn-sm btn-outline-secondary">Editar</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {# display navigation #}
+            <div class="navigation d-flex justify-content-center py-4">
+                {{ knp_pagination_render(postsPagination) }}
+            </div>
+        </div>
     </div>
+
+
 
 {% endblock %}

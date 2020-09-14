@@ -22,7 +22,10 @@ class ContactType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
-                'translation_domain' => 'forms'
+                'translation_domain' => 'forms',
+                'attr' => [
+                    'placeholder' => 'pepitoperez@email.com'
+                ]
             ])
             ->add('message', TextareaType::class, [
                 'label' => 'Message',

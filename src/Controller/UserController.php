@@ -37,7 +37,7 @@ class UserController extends AbstractController
             // Check if user already exist
             $userCheck = $em->getRepository(Users::class)->findOneBy(['email' => $form['email']->getData()]);
             if ($userCheck) {
-                $this->addFlash('error', 'User already registered');
+                $this->addFlash('error', 'Usuario (email) ya registrado');
                 return $this->redirectToRoute('register');
             }
             
@@ -46,7 +46,7 @@ class UserController extends AbstractController
 
             $em->persist($user);
             $em->flush();
-            $this->addFlash('success', 'Registered successfully');
+            $this->addFlash('success', 'Regirtro realizado satisfactoriamente');
             return $this->redirectToRoute('register');
         }
 

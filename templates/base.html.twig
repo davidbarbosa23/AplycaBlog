@@ -32,10 +32,22 @@
                             <li class="nav-item {{ app.request.get('_route') == 'blog' or app.request.get('_route') == 'single' ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ path('blog') }}">Blog</a>
                             </li>
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                <li class="nav-item {{ app.request.get('_route') == 'myposts' ? 'active' : '' }}">
+                                    <a class="nav-link" href="{{ path('myposts') }}">Mis Entradas</a>
+                                </li>
+                            {% endif %}
                             <li class="nav-item {{ app.request.get('_route') == 'contact' ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ path('contact') }}">Contacto</a>
                             </li>
                             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('user') }}">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                        </svg>
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link btn btn-outline-secondary" href="{{ path('app_logout') }}">Cerrar Sesión</a>
                                 </li>
@@ -62,10 +74,9 @@
         <footer class="footer mt-auto py-3 text-muted">
             <div class="container">
                 <p class="float-right">
-                    <a href="#">Back to top</a>
+                    <a href="#">Ir arriba</a>
                 </p>
-                <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-                <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="/docs/4.5/getting-started/introduction/">getting started guide</a>.</p>
+                <p class="w-50"><small><b>Aplyca</b>, Experiencia de más de 10 años entregando soluciones totalmente funcionales y operativas en la nube. Innovación, integración continua, desarrollo a la medida.</small></p>
             </div>
         </footer>
     {% endblock %}
@@ -76,6 +87,8 @@
         <script type="text/javascript" src="{{ asset('assets/js/jquery-3.5.1.slim.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('assets/js/popper-2.4.4.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('assets/bootstrap-4.5.2/js/bootstrap.min.js') }}"></script>
+        
+        <script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script>
     {% endblock %}
 
   </body>

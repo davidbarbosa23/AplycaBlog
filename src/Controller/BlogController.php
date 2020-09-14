@@ -87,6 +87,43 @@ class BlogController extends AbstractController
             'addPostForm' => $form->createView()
         ]);
     }
+    
+    /**
+     * @Route("/blog/edit/{id}", name="edit")
+     */
+    public function edit($id, Request $request, FileUploader $fileUploader)
+    {
+        // Entity Manager
+        $em = $this->getDoctrine()->getManager();
+        // Find Post
+        $post = $em->getRepository(Post::class)->find($id);
+        
+        $form = $this->createForm(PostType::class, $post);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $imageFile */
+            $imageFile = $form->get('image')->getData();
+            if ($imageFile) {
+                $uploadedImageName = $fileUploader->upload($imageFile, "/post/img");
+                $post->setImage($uploadedImageName);
+            }
+
+            // Check for current logged user 
+            $user = $this->getUser();
+            $post->setAuthor($user);
+
+            // Entity Manager
+            $em->persist($post);
+            $em->flush();
+            return $this->redirectToRoute('blog');
+        }
+
+        return $this->render('blog/edit.html.twig', [
+            'editPostForm' => $form->createView()
+        ]);
+    }
 
     /**
      * @Route("/blog/{id}", name="single")

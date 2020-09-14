@@ -4,18 +4,29 @@
 
 {% block body %}
 
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
-    
-    {% for message in app.flashes('error') %}
-        <div class="alert alert-danger">
-            {{ message }}
-        </div>
-    {% endfor %}
+<section class="container">
+    <div class="row py-5">
+        <div class="card col-md-8 col-lg-6 mx-auto">
+            <div class="card-body">
+                <h1 class="h3 mb-3 font-weight-normal">Registro</h1>
+                
+                {{ form(registerForm) }}
 
-    {{ form(registerForm) }}
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}

@@ -19,7 +19,10 @@ class RegisterType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'Email',
-                'translation_domain' => 'forms'
+                'translation_domain' => 'forms',
+                'attr' => [
+                    'placeholder' => 'pepitoperez@email.com'
+                ]
             ])
             ->add('password', PasswordType::class, [
                 'label' => 'Password',

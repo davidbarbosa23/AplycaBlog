@@ -47,7 +47,7 @@ class PostType extends AbstractType
                 'required' => false
             ])
             ->add('add', SubmitType::class, [
-                'label' => 'Add Post',
+                'label' => 'Submit',
                 'translation_domain' => 'forms'
             ])
         ;

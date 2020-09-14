@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Contacto | {{ parent() }}{% endblock %}
+{% block title %}Editar Entrada | {{ parent() }}{% endblock %}
 
 {% block body %}
 
@@ -8,9 +8,10 @@
     <div class="row py-5">
         <div class="card col-md-8 col-lg-6 mx-auto">
             <div class="card-body">
-                <h1 class="h3 mb-3 font-weight-normal">Contacto</h1>
+                <h1 class="h3 mb-3 font-weight-normal">Editar Entrada</h1>
                 
-                {{ form(contactForm) }}
+                {{ form(editPostForm) }}
+
 
                 {% for message in app.flashes('success') %}
                     <div class="alert alert-success">
